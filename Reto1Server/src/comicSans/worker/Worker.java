@@ -32,7 +32,7 @@ public class Worker  extends Thread{
          break;
     case SIGN_UP: 
         
-        break;
+       
     case LOGOUT: 
         
         
