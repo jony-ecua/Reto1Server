@@ -6,6 +6,7 @@
 package comicSans.com.Reto1Server;
 
 import comicSans.com.Reto1Server.Pool.ConnectionPool;
+import comicSans.worker.Worker;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import message.MessageReto;
@@ -34,41 +36,22 @@ public class Server {
         ServerSocket servidor;
         Socket sc;
         final int PUERTO = 1300;
-        
-        //ObjectInputStream in;
-        //ObjectOutputStream out;
-        DataInputStream in;
-        DataOutputStream out;
-        
+
+        ArrayList<Worker> work = new ArrayList<>();
+
         try {
             servidor = new ServerSocket(PUERTO);
             System.out.println("Servidor conectado!");
-
-            while (true) {
+            for (int i = 1; i <= 5; i++) {
                 sc = servidor.accept();
+                System.out.println("Cliente " + i + " conectado!");
 
-                System.out.println("Cliente conectado!");
-
-                //in = new ObjectInputStream(sc.getInputStream());
-                //out = new ObjectOutputStream(sc.getOutputStream());
-                //MessageReto mes = (MessageReto) in.readObject();
-                //System.out.println(mes.getUser().getFullName());//Para comrpbar que el mensaje llega
-
-                in = new DataInputStream(sc.getInputStream());
-                out = new DataOutputStream(sc.getOutputStream());
-                
-                String mensaje = in.readUTF();
-                System.out.println(mensaje);
-                
-                sc.close();
-                System.out.println("Cliente desconectado!");
+                Worker aux = new Worker(sc);
+                work.add(aux);
 
             }
-
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-        //} catch (ClassNotFoundException ex) {
-        //    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
