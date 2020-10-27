@@ -15,7 +15,32 @@ public class Server {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        int opc;
+
+        do {
+            opc = menu();
+
+            switch (opc) {
+                case 1:
+                    
+                    break;
+
+                case 2:
+                    
+                    break;
+            }
+        } while (opc != 9);
     }
-    
+
+    private static int menu() {
+        int opc;
+
+        System.out.println("1. Sign Up");
+        System.out.println("2. Sign In");
+
+        opc = Utilidades.leerInt();
+        
+        return opc;
+    }
 }
