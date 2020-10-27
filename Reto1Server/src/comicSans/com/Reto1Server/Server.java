@@ -5,6 +5,8 @@
  */
 package comicSans.com.Reto1Server;
 
+import comicSans.com.Reto1Server.dao.DaoImplementation;
+
 /**
  *
  * @author jonyv
@@ -16,31 +18,17 @@ public class Server {
      */
     public static void main(String[] args) {
 
-        int opc;
-
-        do {
-            opc = menu();
-
-            switch (opc) {
-                case 1:
-                    
-                    break;
-
-                case 2:
-                    
-                    break;
-            }
-        } while (opc != 9);
+        signUp();
     }
 
-    private static int menu() {
-        int opc;
+    private static void signUp() {
+        User u = new User();
+        u.setLogin("aaaa");
+        u.setEmail("aaa@gmail.com");
+        u.setFullName("Aaaa aaa");
+        u.setPassword("aaaaaaaaaaaaa");
 
-        System.out.println("1. Sign Up");
-        System.out.println("2. Sign In");
-
-        opc = Utilidades.leerInt();
-        
-        return opc;
+        DaoImplementation dao = new DaoImplementation();
+        dao.signUp(u);
     }
 }
