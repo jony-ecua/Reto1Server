@@ -10,14 +10,22 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author 2dam
+ * Class that defines the methods of the Signable Interface.
+ * Is used to execute query commands that will acces de database.
+ * @author Nerea Aranguren and Cristina Milea
  */
 public class DaoImplementation implements Dao{
+    
+    
+    private final String updateLogin = "UPDATE user SET lastAccess = ? WHERE login= ? and password= ?";
+    private final String selectUser = "SELECT * FROM user WHERE login= ?";
+    
+    
     
     private Connection con;
     private PreparedStatement stm;
@@ -64,78 +72,48 @@ public class DaoImplementation implements Dao{
     }
     
     
-    
-    
-   
-    
-    
-    
-
     @Override
-    public void signUpUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void signUpUser(User user) { throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     @Override
     public void signInUser(User u) {
-        try {
-            ResultSet rs = null;
-            
+        try {            
             this.conectar();
             
-            boolean exists = false;
-            
-            exists=this.checkUserExists(u);
-            
+            boolean exists = this.checkUserExists(u);
             if (exists){
-                
-            }
-            
-           timeStamp timeNow = new TimeStamp();
+                Timestamp timeNow = new Timestamp(System.currentTimeMillis());
 
-            String select = "UPDATE user SET lastAccess ='" +timeNow+ "' WHERE login='" +u.getLogin()+ "'";
-            stm = con.prepareStatement(select);
-            rs = stm.executeQuery(select);
-            
-            while (rs.next()) {
-                c.setId(rs.getLong("id"));
-                c.setCity(rs.getString("city"));
-                c.setEmail(rs.getString("email"));
-                c.setFirstName(rs.getString("firstName"));
-                c.setLastName(rs.getString("lastName"));
-                c.setMiddleInitial(rs.getString("middleInitial"));
-                c.setPhone(rs.getLong("phone"));
-                c.setState(rs.getString("state"));
-                c.setStreet(rs.getString("street"));
-                c.setZip(rs.getInt("zip"));
+                stm = con.prepareStatement(updateLogin);
+                stm.setTimestamp(1, timeNow);
+                stm.setString(2, u.getLogin());
+                stm.setString(3, u.getPassword());
+                stm.executeUpdate();
+            } else {
+                System.out.println("NO existe");
             }
-            
-            rs.close();
-            
             this.desconectar();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DaoImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     
-    // private final String checkUserExist = " select * from user where login='";
     
-    @Override
     public boolean checkUserExists(User u) {
          boolean exists = false;
+         
          try {
             ResultSet rs = null;
             
             this.conectar();
             
-            String select = " select * from user where login='" +u.getLogin()+ "'";
-            stm = con.prepareStatement(select);
-            rs = stm.executeQuery(select);
-            
-            /*
-            stm = con.prepareStatement(checkUserExist + user.getLogin() +"'");
-            rs = stm.executeQuery(checkUserExist);*/
+            stm = con.prepareStatement(selectUser);
+            stm.setString(1, u.getLogin());
+            rs = stm.executeQuery();
             
             if (rs.next()) {
                 exists = true;
@@ -146,8 +124,11 @@ public class DaoImplementation implements Dao{
             rs.close();
             
             this.desconectar();
+            
         } catch (SQLException ex) {
             Logger.getLogger(DaoImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            
         }
          return exists;
     }

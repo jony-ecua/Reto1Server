@@ -12,5 +12,4 @@ package comicSans.com.Reto1Server.dao;
 public interface Dao {
     public void signUpUser(User user);
     public void signInUser(User user);
-    public boolean checkUserExists(User user);
 }

@@ -19,23 +19,19 @@ public class Server {
     public static void main(String[] args) {
        
         DaoImplementation d = new DaoImplementation();
-        boolean existe = false;
         
-        User u = new User();
-        u.setLogin("knuspo");
+        User us = new User();
+        us.setLogin("carlitos");
+        us.setPassword("carlos");
         
-       existe = d.checkUserExists(u);
-        
-        if(existe){
-            System.out.println("El usuario existe");
-        } else {
-            System.out.println("NO existe");
-        }
-        
+       //d.signInUser(us);
+       boolean existe = d.checkUserExists(us);
+       if(existe){
+           System.out.println("existe");
+       } else {
+           System.out.println("no existe");
+       }
     }
     
-    public static void prueba(){
-         
-    }
     
 }

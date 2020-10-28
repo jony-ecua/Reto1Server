@@ -8,6 +8,7 @@ package comicSans.com.Reto1Server.dao;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -50,7 +51,7 @@ public class User implements Serializable{
         this.status = status;
         this.privilege = privilege;
         this.password = password;
-        this.lastAccess = lastAccess;
+        //this.lastAccess = lastAccess;
         this.lastPasswordChange = lastPasswordChange;
     }
 
@@ -119,7 +120,7 @@ public class User implements Serializable{
     }
 
     public void setLastAccess(Date lastAccess) {
-        this.lastAccess = lastAccess;
+        //this.lastAccess = lastAccess;
     }
 
     public void setLastPasswordChange(Date lastPasswordChange) {
