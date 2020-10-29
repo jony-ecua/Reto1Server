@@ -14,7 +14,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 /**
  *
- * @author xabig
+ * @author xabier
  */
 public class ConnectionPool {
     private ResourceBundle rb = ResourceBundle.getBundle("comicSans.Pool.DataPool");

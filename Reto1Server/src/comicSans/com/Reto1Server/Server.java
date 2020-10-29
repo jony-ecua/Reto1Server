@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package comicSans.Server;
+package comicSans.com.Server;
 
 import comicSans.Pool.ConnectionPool;
 import comicSans.Worker.Worker;
@@ -23,7 +23,7 @@ import message.MessageReto;
 
 /**
  *
- * @author jonyv
+ * @author Xabier
  */
 public class Server {
 
@@ -41,7 +41,7 @@ public class Server {
        try {
             servidor = new ServerSocket(PUERTO);
             System.out.println("Servidor conectado!");
-            for (int i = 1; i <= 5; i++) {
+            for (int i= 1; i <= 5; i++) {
                 sc = servidor.accept();
                 System.out.println("Cliente " + i + " conectado!");
 

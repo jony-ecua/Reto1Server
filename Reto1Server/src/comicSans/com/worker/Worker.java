@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package comicSans.Worker;
+package comicSans.com.Worker;
 
 import clientDaoInterface.Signable;
 import comicSans.Dao.DaoFactory;
